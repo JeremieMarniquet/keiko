@@ -11,14 +11,12 @@ interface StateType {
 }
 
 class Home extends React.Component<PropsType, StateType> {
-  public readonly state: StateType = {
+  state: StateType = {
     pokemons: [],
   };
 
   render(): React.ReactNode {
-    console.log(this.state.pokemons);
-
-    if (typeof this.state.pokemons[0] !== 'undefined') {
+    if (this.state.pokemons.length !== 0) {
       const pokemon = this.state.pokemons[0];
 
       return (
