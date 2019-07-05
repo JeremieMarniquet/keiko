@@ -22,7 +22,9 @@ class Home extends React.Component<PropsType, StateType> {
       return (
         <Style.Intro>
           <div>Pokédex :</div>
-          <Pokemon pokemon={pokemon} />
+          {this.state.pokemons.map(pokemon => (
+            <Pokemon key={pokemon.id} pokemon={pokemon} />
+          ))}
         </Style.Intro>
       );
     }
