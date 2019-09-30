@@ -8,4 +8,9 @@ export default {
     flex-direction: column;
     padding: 10px;
   `,
+  Pokemons: styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+  `,
 };
