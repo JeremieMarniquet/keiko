@@ -24,7 +24,7 @@ class Home extends React.Component<Props, State> {
           <div>Bienvenue sur mon pokédex !</div>
         </Style.Intro>
         <Style.Pokemons>
-          {this.state.pokemons.slice(0, 9).map(function(pokemon, index) {
+          {this.state.pokemons.map(function(pokemon, index) {
             return <Pokemon key={index} pokedexId={pokemon.id} name={pokemon.name} />;
           })}
         </Style.Pokemons>
