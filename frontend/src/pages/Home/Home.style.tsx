@@ -11,6 +11,7 @@ export default {
   Pokemons: styled.div`
     display: flex;
     flex-flow: row wrap;
+    justify-content: center;
     width: 100%;
   `,
 };

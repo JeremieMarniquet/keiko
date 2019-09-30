@@ -5,6 +5,7 @@ import Pokemon from 'components/Pokemon';
 import { makeGetRequest } from 'services/networking/request';
 
 import { FormattedMessage } from 'react-intl';
+import { createGlobalStyle } from 'styled-components';
 
 interface Props {}
 interface State {
@@ -16,6 +17,16 @@ interface State {
   }[];
 }
 
+const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: 'Pokemon GB';
+    src: url('../public/pokemon.ttf') format('ttf')
+  }
+  body {
+    font-family: 'Pokemon GB' 'sans-serif';
+  }
+`;
+
 class Home extends React.Component<Props, State> {
   readonly state: State = {
     pokemons: [],
@@ -24,6 +35,7 @@ class Home extends React.Component<Props, State> {
   render(): React.ReactNode {
     return (
       <>
+        <GlobalStyle />
         <Style.Intro>
           <p>
             <FormattedMessage id="home.welcome-message" />
