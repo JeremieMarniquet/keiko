@@ -4,11 +4,15 @@ import Style from './Home.style';
 import Pokemon from 'components/Pokemon';
 import { makeGetRequest } from 'services/networking/request';
 
+import { FormattedMessage } from 'react-intl';
+
 interface Props {}
 interface State {
   pokemons: {
     id: number;
     name: string;
+    height: number;
+    weight: number;
   }[];
 }
 
@@ -21,11 +25,22 @@ class Home extends React.Component<Props, State> {
     return (
       <>
         <Style.Intro>
-          <div>Bienvenue sur mon pokédex !</div>
+          <p>
+            <FormattedMessage id="home.welcome-message" />
+          </p>
         </Style.Intro>
         <Style.Pokemons>
           {this.state.pokemons.map(function(pokemon, index) {
-            return <Pokemon key={index} pokedexId={pokemon.id} name={pokemon.name} />;
+            return (
+              <Pokemon
+                key={index}
+                pokedexId={pokemon.id}
+                name={pokemon.name}
+                // Convert from decimeters to centimeters
+                height={pokemon.height * 10}
+                weight={pokemon.weight}
+              />
+            );
           })}
         </Style.Pokemons>
       </>

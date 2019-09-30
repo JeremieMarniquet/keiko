@@ -1,10 +1,13 @@
 import * as React from 'react';
 
 import Style from './Pokemon.style';
+import { FormattedMessage } from 'react-intl';
 
 interface Props {
   name: string;
   pokedexId: number;
+  weight: number;
+  height: number;
 }
 
 class Pokemon extends React.Component<Props> {
@@ -13,8 +16,16 @@ class Pokemon extends React.Component<Props> {
     return (
       <Style.Pokemon>
         <p>{this.props.name}</p>
-        <p>{this.props.pokedexId}</p>
         <img src={imageURl} alt={this.props.name} />
+        <p>
+          <FormattedMessage id="pokemon.id" /> : {this.props.pokedexId}
+        </p>
+        <p>
+          <FormattedMessage id="pokemon.weight" /> : {this.props.weight}kg
+        </p>
+        <p>
+          <FormattedMessage id="pokemon.height" /> : {this.props.height}cm
+        </p>
       </Style.Pokemon>
     );
   }
