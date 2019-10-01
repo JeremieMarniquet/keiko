@@ -10,5 +10,15 @@ export default {
     border: 2px solid black;
     outline: 2px solid black;
     outline-offset: 1px;
+    font-size: 0.8em;
+    width: 15%;
+
+    /* Responsive display */
+    @media screen and (max-width: 1200px) {
+      width: 25%;
+    }
+    @media screen and (max-width: 700px) {
+      width: 40%;
+    }
   `,
 };

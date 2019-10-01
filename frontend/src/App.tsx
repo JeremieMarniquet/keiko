@@ -7,6 +7,7 @@ import { Route } from 'react-router';
 import { Store } from 'redux';
 import { Persistor } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import { GlobalStyle } from './global-style';
 
 import Root from './components/Root';
 import Routes from './routes';
@@ -25,6 +26,7 @@ const RootComponentWithRoutes: React.FunctionComponent = () => (
 
 const App: React.FunctionComponent<Props> = ({ history, persistor, store }) => (
   <Provider store={store}>
+    <GlobalStyle />
     <PersistGate loading={null} persistor={persistor}>
       <ConnectedRouter history={history}>
         <Route path="/" component={RootComponentWithRoutes} />
