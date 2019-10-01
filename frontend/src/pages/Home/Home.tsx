@@ -5,9 +5,11 @@ import Pokemon from 'components/Pokemon';
 import { makeGetRequest } from 'services/networking/request';
 
 import { FormattedMessage } from 'react-intl';
+import Loader from '../../assets/loader.svg';
 
 interface Props {}
 interface State {
+  loading: boolean;
   pokemons: {
     id: number;
     name: string;
@@ -17,7 +19,8 @@ interface State {
 }
 
 class Home extends React.Component<Props, State> {
-  readonly state: State = {
+  state: State = {
+    loading: true,
     pokemons: [],
   };
 
@@ -29,20 +32,26 @@ class Home extends React.Component<Props, State> {
             <FormattedMessage id="home.welcome-message" />
           </p>
         </Style.Intro>
-        <Style.Pokemons>
-          {this.state.pokemons.map(function(pokemon, index) {
-            return (
-              <Pokemon
-                key={index}
-                pokedexId={pokemon.id}
-                name={pokemon.name}
-                // Convert from decimeters to centimeters
-                height={pokemon.height * 10}
-                weight={pokemon.weight}
-              />
-            );
-          })}
-        </Style.Pokemons>
+        <Style.MainContainer>
+          {this.state.loading ? (
+            <Style.Loader src={Loader} alt="Loading..." />
+          ) : (
+            <Style.Pokemons>
+              {this.state.pokemons.map(function(pokemon, index) {
+                return (
+                  <Pokemon
+                    key={index}
+                    pokedexId={pokemon.id}
+                    name={pokemon.name}
+                    // Convert from decimeters to centimeters
+                    height={pokemon.height * 10}
+                    weight={pokemon.weight}
+                  />
+                );
+              })}
+            </Style.Pokemons>
+          )}
+        </Style.MainContainer>
       </>
     );
   }
@@ -51,6 +60,7 @@ class Home extends React.Component<Props, State> {
     let component: Home = this;
     makeGetRequest('/pokemon').then(function(response) {
       component.setState({
+        loading: false,
         pokemons: response.body,
       });
     });
