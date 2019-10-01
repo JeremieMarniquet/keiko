@@ -19,5 +19,8 @@
     "id": "Id",
     "weight": "Poids",
     "height": "Taille"
+  },
+  "error": {
+    "loading": "Une erreur est survenue durant la récupération des données."
   }
 }

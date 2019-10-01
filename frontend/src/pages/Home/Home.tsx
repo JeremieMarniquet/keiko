@@ -10,6 +10,7 @@ import Loader from '../../assets/loader.svg';
 interface Props {}
 interface State {
   loading: boolean;
+  error: boolean;
   pokemons: {
     id: number;
     name: string;
@@ -21,6 +22,7 @@ interface State {
 class Home extends React.Component<Props, State> {
   state: State = {
     loading: true,
+    error: false,
     pokemons: [],
   };
 
@@ -35,6 +37,10 @@ class Home extends React.Component<Props, State> {
         <Style.MainContainer>
           {this.state.loading ? (
             <Style.Loader src={Loader} alt="Loading..." />
+          ) : this.state.error ? (
+            <Style.ErrorMessage>
+              <FormattedMessage id="error.loading" />
+            </Style.ErrorMessage>
           ) : (
             <Style.Pokemons>
               {this.state.pokemons.map(function(pokemon, index) {
@@ -58,12 +64,21 @@ class Home extends React.Component<Props, State> {
 
   componentDidMount(): void {
     let component: Home = this;
-    makeGetRequest('/pokemon').then(function(response) {
-      component.setState({
-        loading: false,
-        pokemons: response.body,
+    makeGetRequest('/pokemon')
+      .then(function(response) {
+        component.setState({
+          loading: false,
+          error: false,
+          pokemons: response.body,
+        });
+      })
+      .catch(function(err) {
+        component.setState({
+          loading: false,
+          error: true,
+          pokemons: [],
+        });
       });
-    });
   }
 }
 

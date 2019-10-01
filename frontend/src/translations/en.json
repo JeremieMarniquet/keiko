@@ -19,5 +19,8 @@
     "id": "Id",
     "weight": "Weight",
     "height": "Height"
+  },
+  "error": {
+    "loading": "An error occured when retrieving data from server."
   }
 }

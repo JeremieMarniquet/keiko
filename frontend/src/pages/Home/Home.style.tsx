@@ -19,6 +19,10 @@ export default {
     justify-content: center;
     width: 100%;
   `,
+  ErrorMessage: styled.p`
+    margin: auto;
+    color: red;
+  `,
   Loader: styled.img`
     margin: auto;
     width: 200px;
