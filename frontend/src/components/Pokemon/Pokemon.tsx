@@ -15,10 +15,18 @@ var Pokemon = (props: Props) => {
   let imageUrl: string = showsBack
     ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${props.pokedexId}.png`
     : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.pokedexId}.png`;
+
   return (
-    <Style.Pokemon onClick={() => setShowsBack(!showsBack)}>
+    <Style.PokemonCard to={`/pokemon/${props.pokedexId}`}>
       <p>{props.name}</p>
-      <img src={imageUrl} alt={props.name} />
+      <img
+        src={imageUrl}
+        alt={props.name}
+        onClick={(e: React.MouseEvent) => {
+          e.preventDefault();
+          setShowsBack(!showsBack);
+        }}
+      />
       <p>
         <FormattedMessage id="pokemon.id" /> : {props.pokedexId}
       </p>
@@ -28,7 +36,7 @@ var Pokemon = (props: Props) => {
       <p>
         <FormattedMessage id="pokemon.height" /> : {props.height}cm
       </p>
-    </Style.Pokemon>
+    </Style.PokemonCard>
   );
 };
 

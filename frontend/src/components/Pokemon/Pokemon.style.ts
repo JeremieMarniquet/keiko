@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export default {
-  Pokemon: styled.div`
+  PokemonCard: styled(Link)`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,6 +13,8 @@ export default {
     outline-offset: 1px;
     font-size: 0.8em;
     width: 15%;
+    text-decoration: none;
+    color: black;
 
     /* Responsive display */
     @media screen and (max-width: 1200px) {
