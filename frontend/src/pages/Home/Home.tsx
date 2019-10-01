@@ -62,23 +62,22 @@ class Home extends React.Component<Props, State> {
     );
   }
 
-  componentDidMount(): void {
+  async componentDidMount(): Promise<void> {
     let component: Home = this;
-    makeGetRequest('/pokemon')
-      .then(function(response) {
-        component.setState({
-          loading: false,
-          error: false,
-          pokemons: response.body,
-        });
-      })
-      .catch(function(err) {
-        component.setState({
-          loading: false,
-          error: true,
-          pokemons: [],
-        });
+    try {
+      let response = await makeGetRequest('/pokemon');
+      component.setState({
+        loading: false,
+        error: false,
+        pokemons: response.body,
       });
+    } catch (e) {
+      component.setState({
+        loading: false,
+        error: true,
+        pokemons: [],
+      });
+    }
   }
 }
 
