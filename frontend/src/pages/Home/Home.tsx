@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Style from './Home.style';
 import Pokemon from 'components/Pokemon';
@@ -19,66 +19,70 @@ interface State {
   }[];
 }
 
-class Home extends React.Component<Props, State> {
-  state: State = {
+var Home = (props: State) => {
+  // Default state
+  let defaultState: State = {
     loading: true,
     error: false,
     pokemons: [],
   };
+  let [state, setState] = useState(defaultState);
 
-  render(): React.ReactNode {
-    return (
-      <>
-        <Style.Intro>
-          <p>
-            <FormattedMessage id="home.welcome-message" />
-          </p>
-        </Style.Intro>
-        <Style.MainContainer>
-          {this.state.loading ? (
-            <Style.Loader src={Loader} alt="Loading..." />
-          ) : this.state.error ? (
-            <Style.ErrorMessage>
-              <FormattedMessage id="error.loading" />
-            </Style.ErrorMessage>
-          ) : (
-            <Style.Pokemons>
-              {this.state.pokemons.map(function(pokemon, index) {
-                return (
-                  <Pokemon
-                    key={index}
-                    pokedexId={pokemon.id}
-                    name={pokemon.name}
-                    // Convert from decimeters to centimeters
-                    height={pokemon.height * 10}
-                    weight={pokemon.weight}
-                  />
-                );
-              })}
-            </Style.Pokemons>
-          )}
-        </Style.MainContainer>
-      </>
-    );
-  }
-
-  async componentDidMount(): Promise<void> {
-    let component: Home = this;
-    try {
-      let response = await makeGetRequest('/pokemon');
-      component.setState({
-        loading: false,
-        error: false,
-        pokemons: response.body,
-      });
-    } catch (e) {
-      component.setState({
-        loading: false,
-        error: true,
-        pokemons: [],
-      });
+  useEffect(() => {
+    if (state.loading) {
+      let effect = async () => {
+        try {
+          let response = await makeGetRequest('/pokemon');
+          setState({
+            loading: false,
+            error: false,
+            pokemons: response.body,
+          });
+        } catch (e) {
+          setState({
+            loading: false,
+            error: true,
+            pokemons: [],
+          });
+        }
+      };
+      effect();
     }
-  }
-}
+  }, [state.loading]);
+
+  return (
+    <>
+      <Style.Intro>
+        <p>
+          <FormattedMessage id="home.welcome-message" />
+        </p>
+      </Style.Intro>
+      <Style.MainContainer>
+        {state.loading ? (
+          <Style.Loader src={Loader} alt="Loading..." />
+        ) : state.error ? (
+          <Style.ErrorMessage>
+            <FormattedMessage id="error.loading" />
+          </Style.ErrorMessage>
+        ) : (
+          <Style.Pokemons>
+            {state.pokemons.map(function(pokemon, index) {
+              return (
+                <Pokemon
+                  key={index}
+                  pokedexId={pokemon.id}
+                  name={pokemon.name}
+                  // Convert from decimeters to centimeters
+                  height={pokemon.height * 10}
+                  weight={pokemon.weight}
+                />
+              );
+            })}
+          </Style.Pokemons>
+        )}
+      </Style.MainContainer>
+    </>
+  );
+};
 
 export default Home;
