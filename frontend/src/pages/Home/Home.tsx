@@ -19,7 +19,7 @@ interface State {
   }[];
 }
 
-var Home = (props: State) => {
+var Home = (props: Props) => {
   // Default state
   let defaultState: State = {
     loading: true,

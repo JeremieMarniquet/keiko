@@ -21,6 +21,7 @@
     "height": "Height"
   },
   "error": {
-    "loading": "An error occured when retrieving data from server."
+    "loading": "An error occured when retrieving data from server.",
+    "serverError": "An internal error occured"
   }
 }

@@ -21,6 +21,7 @@
     "height": "Taille"
   },
   "error": {
-    "loading": "Une erreur est survenue durant la récupération des données."
+    "loading": "Une erreur est survenue durant la récupération des données.",
+    "serverError": "Nous avons rencontré un problème lors du traitement de votre requête"
   }
 }
