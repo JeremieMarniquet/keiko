@@ -40,12 +40,4 @@ var Pokemon = (props: Props) => {
   );
 };
 
-// class Pokemon extends React.Component<Props> {
-//   render(): React.ReactNode {
-//     const imageURl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.props.pokedexId}.png`;
-//     return (
-//     );
-//   }
-// }
-
 export default Pokemon;
