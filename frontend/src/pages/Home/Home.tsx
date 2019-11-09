@@ -7,7 +7,9 @@ import { makeGetRequest } from 'services/networking/request';
 import { FormattedMessage } from 'react-intl';
 import Loader from '../../assets/loader.svg';
 
-interface Props {}
+interface Props {
+  match: any;
+}
 interface State {
   loading: boolean;
   error: boolean;
@@ -20,6 +22,9 @@ interface State {
 }
 
 var Home = (props: Props) => {
+  // Retrieve the page or set a default value if the component is called from '/'
+  let page = props.match.params.page ? props.match.params.page : 1;
+
   // Default state
   let defaultState: State = {
     loading: true,
@@ -32,7 +37,7 @@ var Home = (props: Props) => {
     if (state.loading) {
       let effect = async () => {
         try {
-          let response = await makeGetRequest('/pokemon');
+          let response = await makeGetRequest(`/pokemon?page=${page}`);
           setState({
             loading: false,
             error: false,
@@ -48,7 +53,7 @@ var Home = (props: Props) => {
       };
       effect();
     }
-  }, [state.loading]);
+  }, [state.loading, page]);
 
   return (
     <>
