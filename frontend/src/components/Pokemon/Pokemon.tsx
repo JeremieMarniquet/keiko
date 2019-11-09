@@ -11,8 +11,8 @@ interface Props {
 }
 
 var Pokemon = (props: Props) => {
-  const [showsBack, setShowsBack] = useState(false);
-  let imageUrl: string = showsBack
+  const [isTurned, setIsTurned] = useState(false);
+  let imageUrl: string = isTurned
     ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${props.pokedexId}.png`
     : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.pokedexId}.png`;
 
@@ -24,7 +24,7 @@ var Pokemon = (props: Props) => {
         alt={props.name}
         onClick={(e: React.MouseEvent) => {
           e.preventDefault();
-          setShowsBack(!showsBack);
+          setIsTurned(!isTurned);
         }}
       />
       <p>
