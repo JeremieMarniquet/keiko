@@ -26,6 +26,21 @@ class PokemonController
     }
 
     /**
+     * @Route("/api/pokemon", methods={"GET"})
+     */
+    public function list()
+    {
+        // Retrieve the pokemons
+        $repository = $this->entityManager->getRepository(Pokemon::class);
+        $pokemons = $repository->findAll();
+
+        // Serialize
+        $response = $this->normalizer->normalize($pokemons, 'json');
+
+        return new JsonResponse($response);
+    }
+
+    /**
      * @Route("/api/pokemon/{id}", methods={"GET"})
      */
     public function get(string $id)
