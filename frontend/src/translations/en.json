@@ -8,7 +8,9 @@
     "generate-module": "To add business logic, add a file in ./redux with your reducers/actions/sagas/selectors/constants/...",
     "click-me": "Click me",
     "readme": "Look at the README.md to discover the awesome npm commands we added",
-    "welcome-message": "Welcome on my Pokedex !"
+    "welcome-message": "Welcome on my Pokedex !",
+    "previous-page": "Previous page",
+    "next-page": "Next page"
   },
   "page": {
     "back": "Back",

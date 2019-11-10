@@ -1,12 +1,19 @@
 import styled from 'styled-components';
 
+import { Link } from 'react-router-dom';
+
 export default {
   Intro: styled.div`
     font-size: 20px;
     display: flex;
+    justify-content: space-around;
     align-items: center;
-    flex-direction: column;
     padding: 10px;
+    text-align: center;
+  `,
+  Arrow: styled(Link)`
+    width: 20%;
+    font-size: 0.8em;
   `,
   MainContainer: styled.div`
     margin-top: 2em;

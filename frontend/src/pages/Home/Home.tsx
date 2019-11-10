@@ -22,9 +22,6 @@ interface State {
 }
 
 var Home = (props: Props) => {
-  // Retrieve the page or set a default value if the component is called from '/'
-  let page = props.match.params.page ? props.match.params.page : 1;
-
   // Default state
   let defaultState: State = {
     loading: true,
@@ -32,6 +29,22 @@ var Home = (props: Props) => {
     pokemons: [],
   };
   let [state, setState] = useState(defaultState);
+
+  // Use a separate state variable to manage the current pokedex page
+  // If the page is retrieved as the index page (with the "/" route),
+  // or if the page url parameter is invalid (not a number) -> default to 1
+  let [page, setPage] = useState(parseInt(props.match.params.page) || 1);
+
+  // Update the page number, and set reset the component in a "loading" state so that
+  // it fetches the new page.
+  let previousPage = () => {
+    setPage(page - 1);
+    setState(defaultState);
+  };
+  let nextPage = () => {
+    setPage(page + 1);
+    setState(defaultState);
+  };
 
   useEffect(() => {
     if (state.loading) {
@@ -58,9 +71,15 @@ var Home = (props: Props) => {
   return (
     <>
       <Style.Intro>
+        <Style.Arrow to={`/pokedex/${page - 1}`} onClick={previousPage}>
+          {page !== 1 && <FormattedMessage id="home.previous-page" />}
+        </Style.Arrow>
         <p>
           <FormattedMessage id="home.welcome-message" />
         </p>
+        <Style.Arrow to={`/pokedex/${page + 1}`} onClick={nextPage}>
+          {page !== 6 && <FormattedMessage id="home.next-page" />}
+        </Style.Arrow>
       </Style.Intro>
       <Style.MainContainer>
         {state.loading ? (
