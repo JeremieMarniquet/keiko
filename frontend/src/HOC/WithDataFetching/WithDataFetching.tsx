@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Loader from '../../assets/loader.svg';
 
-import Style from './withDataFetching.style';
+import Style from './WithDataFetching.style';
 
 const withDataFetching = <Props extends object>(
   dataName: string,
@@ -11,50 +11,44 @@ const withDataFetching = <Props extends object>(
   shouldCallEffect: (props: Props) => any[],
 ) => (BaseComponent: React.ComponentType<Props>) => (props: Props) => {
   // Initial state
-  let [state, setState] = useState({
-    loading: true,
-    error: false,
-    data: null,
-  });
+  let [loading, setLoading] = useState<boolean>(true);
+  let [error, setError] = useState<boolean>(false);
+  let [data, setData] = useState<any>(null);
 
   // Fetch effect
   useEffect(() => {
-    if (state.loading) {
-      let effect = async () => {
-        try {
-          let response = await fetchFunction(props);
-          setState({
-            loading: false,
-            error: false,
-            data: response.body,
-          });
-        } catch (e) {
-          setState({
-            loading: false,
-            error: true,
-            data: null,
-          });
-        }
-      };
-      effect();
-    }
+    let effect = async () => {
+      setLoading(true);
+      try {
+        let response = await fetchFunction(props);
+        setData(response.body);
+      } catch (e) {
+        setError(true);
+      }
+      setLoading(false);
+    };
+    effect();
   }, shouldCallEffect(props));
 
   // Gather fetched component props
   let componentProps = {
-    [dataName]: state.data,
+    [dataName]: data,
   };
 
   return (
     <>
-      {state.loading ? (
-        <Style.Loader src={Loader} alt="Loading..." />
-      ) : state.error ? (
-        <Style.ErrorMessage>
-          <FormattedMessage id="error.loading" />
-        </Style.ErrorMessage>
+      {loading ? (
+        <Style.Wrapper>
+          <Style.Loader src={Loader} alt="Loading..." />
+        </Style.Wrapper>
+      ) : error ? (
+        <Style.Wrapper>
+          <Style.ErrorMessage>
+            <FormattedMessage id="error.loading" />
+          </Style.ErrorMessage>
+        </Style.Wrapper>
       ) : (
-        state.data && <BaseComponent {...props} {...componentProps} />
+        data && <BaseComponent {...props} {...componentProps} />
       )}
     </>
   );
