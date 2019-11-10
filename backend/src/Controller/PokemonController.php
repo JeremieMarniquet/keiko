@@ -26,18 +26,18 @@ class PokemonController
     }
 
     /**
-     * @Route("/api/pokemon", methods={"GET"})
+     * @Route("/api/pokemon/{id}", methods={"GET"})
      */
-    public function get()
+    public function get(string $id)
     {
-        $pokemon = new Pokemon();
-        $pokemon->setName('Pikachu2');
-        $pokemon->setHeight(10);
-        $pokemon->setWeight(10);
+        // Retrieve the pokemon based on id
+        $repository = $this->entityManager->getRepository(Pokemon::class);
+        $pokemon = $repository->findOneById($id);
 
-        $content = $this->normalizer->normalize($pokemon, 'json');
+        // Serialize
+        $response = $this->normalizer->normalize($pokemon, 'json');
 
-        return new JsonResponse($content);
+        return new JsonResponse($response);
     }
 
     /**
