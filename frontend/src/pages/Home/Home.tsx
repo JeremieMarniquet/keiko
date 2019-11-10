@@ -34,11 +34,12 @@ var Home = (props: Props) => {
   // or if the page url parameter is invalid (not a number) -> default to 1
   let page = parseInt(props.match.params.page) || 1;
 
-  // Update the page number, and set reset the component in a "loading" state so that
-  // it fetches the new page.
-  let triggerDataFetching = () => {
+  // // Update the page number, and reset the component in a "loading" state so that
+  // // it fetches the new page.
+  useEffect(() => {
     setState(defaultState);
-  };
+    // eslint-disable-next-line
+  }, [page]);
 
   useEffect(() => {
     if (state.loading) {
@@ -65,13 +66,13 @@ var Home = (props: Props) => {
   return (
     <>
       <Style.Intro>
-        <Style.Arrow to={`/pokedex/${page - 1}`} onClick={triggerDataFetching}>
+        <Style.Arrow to={`/pokedex/${page - 1}`}>
           {page !== 1 && <FormattedMessage id="home.previous-page" />}
         </Style.Arrow>
         <p>
           <FormattedMessage id="home.welcome-message" />
         </p>
-        <Style.Arrow to={`/pokedex/${page + 1}`} onClick={triggerDataFetching}>
+        <Style.Arrow to={`/pokedex/${page + 1}`}>
           {page !== 6 && <FormattedMessage id="home.next-page" />}
         </Style.Arrow>
       </Style.Intro>
