@@ -122,4 +122,9 @@ class Pokemon
     {
         $this->abilities = $abilities;
     }
+
+    public function addAbility($ability)
+    {
+        array_push($this->abilities, $ability);
+    }
 }
