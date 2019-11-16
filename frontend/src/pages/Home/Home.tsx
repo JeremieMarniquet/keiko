@@ -4,14 +4,11 @@ import Style from './Home.style';
 import Pokemon from 'components/Pokemon';
 
 import { FormattedMessage } from 'react-intl';
+
+import { PokemonState } from 'redux/Pokemon';
 export interface Props {
   // component data
-  pokemons: {
-    id: number;
-    name: string;
-    height: number;
-    weight: number;
-  }[];
+  pokemons: PokemonState;
   // route parameters
   match: any;
 }
@@ -39,10 +36,10 @@ var Home = (props: Props) => {
       </Style.Intro>
       <Style.MainContainer>
         <Style.Pokemons>
-          {pokemons.map(function(pokemon, index) {
+          {Object.values(pokemons).map(pokemon => {
             return (
               <Pokemon
-                key={index}
+                key={pokemon.id}
                 pokedexId={pokemon.id}
                 name={pokemon.name}
                 // Convert from decimeters to centimeters
