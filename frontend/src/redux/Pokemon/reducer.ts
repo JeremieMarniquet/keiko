@@ -1,6 +1,5 @@
 import { AnyAction } from 'redux';
 import { PokemonState } from './types';
-import { normalize } from './normalizer';
 
 const initialState: PokemonState = {};
 
@@ -9,7 +8,7 @@ const reducer = (state: PokemonState = initialState, action: AnyAction) => {
     case 'Pokemon/FETCH_SUCCESS':
       return {
         ...state,
-        ...normalize(action.payload),
+        ...action.payload,
       };
 
     case 'Pokemon/FETCH_ONE_SUCCESS':

@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import Loader from '../../assets/loader.svg';
 
 import Style from './WithDataFetching.style';
+import { normalize } from 'redux/Pokemon';
 
 const withDataFetching = <Props extends object>(
   dataName: string,
@@ -21,7 +22,7 @@ const withDataFetching = <Props extends object>(
       setLoading(true);
       try {
         let response = await fetchFunction(props);
-        successFunction(props, response.body);
+        successFunction(props, normalize(response.body));
       } catch (e) {
         setError(true);
       }

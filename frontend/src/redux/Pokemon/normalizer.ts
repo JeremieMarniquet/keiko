@@ -1,10 +1,15 @@
 import { PokemonType, PokemonState } from './types';
 
-export const normalize = (pokemons: PokemonType[]): PokemonState =>
-  pokemons.reduce(
-    (newPokemons: PokemonState, pokemon) => ({
-      ...newPokemons,
-      [pokemon.id]: pokemon,
-    }),
-    {},
-  );
+export const normalize = (pokemons: PokemonType[]): PokemonState => {
+  if (pokemons instanceof Array) {
+    return pokemons.reduce(
+      (newPokemons: PokemonState, pokemon) => ({
+        ...newPokemons,
+        [pokemon.id]: pokemon,
+      }),
+      {},
+    );
+  } else {
+    return pokemons;
+  }
+};
