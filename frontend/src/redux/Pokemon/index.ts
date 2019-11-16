@@ -5,3 +5,4 @@ export * from './types';
 export { default as actions } from './actions';
 export * from './actions';
 export * from './normalizer';
+export * from './selectors';

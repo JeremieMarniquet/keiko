@@ -5,13 +5,11 @@ import { FormattedMessage } from 'react-intl';
 
 import { Link } from 'react-router-dom';
 
+import { PokemonType } from 'redux/Pokemon/types';
+
 export interface Props {
-  pokemon: {
-    id: number;
-    name: string;
-    height: number;
-    weight: number;
-  };
+  pokemon: PokemonType;
+  fetchPokemonSuccess: (pokemon: PokemonType) => void;
   match: any;
 }
 

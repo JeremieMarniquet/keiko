@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux';
 import { PokemonState } from './types';
+import { normalize } from './normalizer';
 
 const initialState: PokemonState = {};
 
@@ -8,8 +9,15 @@ const reducer = (state: PokemonState = initialState, action: AnyAction) => {
     case 'Pokemon/FETCH_SUCCESS':
       return {
         ...state,
-        ...action.payload,
+        ...normalize(action.payload),
       };
+
+    case 'Pokemon/FETCH_ONE_SUCCESS':
+      return {
+        ...state,
+        [action.pokemon.id]: action.pokemon,
+      };
+
     default:
       return state;
   }

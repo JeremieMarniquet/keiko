@@ -5,8 +5,6 @@ import Loader from '../../assets/loader.svg';
 
 import Style from './WithDataFetching.style';
 
-import { normalize } from 'redux/Pokemon';
-
 const withDataFetching = <Props extends object>(
   dataName: string,
   fetchFunction: (props: Props) => any,
@@ -23,7 +21,7 @@ const withDataFetching = <Props extends object>(
       setLoading(true);
       try {
         let response = await fetchFunction(props);
-        successFunction(props, normalize(response.body));
+        successFunction(props, response.body);
       } catch (e) {
         setError(true);
       }
