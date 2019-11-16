@@ -6,4 +6,8 @@ export default withDataFetching<Props>(
   'pokemon',
   (props: Props) => makeGetRequest(`/pokemon/${props.match.params.id}`),
   (props: Props) => [],
+  // This will be changed
+  (props: Props) => {
+    console.log(props);
+  },
 )(Pokemon);

@@ -9,11 +9,11 @@ const withDataFetching = <Props extends object>(
   dataName: string,
   fetchFunction: (props: Props) => any,
   shouldCallEffect: (props: Props) => any[],
+  successFunction: (props: Props, data: any) => void,
 ) => (BaseComponent: React.ComponentType<Props>) => (props: Props) => {
   // Initial state
   let [loading, setLoading] = useState<boolean>(true);
   let [error, setError] = useState<boolean>(false);
-  let [data, setData] = useState<any>(null);
 
   // Fetch effect
   useEffect(() => {
@@ -21,7 +21,7 @@ const withDataFetching = <Props extends object>(
       setLoading(true);
       try {
         let response = await fetchFunction(props);
-        setData(response.body);
+        successFunction(props, response.body);
       } catch (e) {
         setError(true);
       }
@@ -29,11 +29,6 @@ const withDataFetching = <Props extends object>(
     };
     effect();
   }, shouldCallEffect(props));
-
-  // Gather fetched component props
-  let componentProps = {
-    [dataName]: data,
-  };
 
   return (
     <>
@@ -48,7 +43,7 @@ const withDataFetching = <Props extends object>(
           </Style.ErrorMessage>
         </Style.Wrapper>
       ) : (
-        data && <BaseComponent {...props} {...componentProps} />
+        <BaseComponent {...props} />
       )}
     </>
   );
