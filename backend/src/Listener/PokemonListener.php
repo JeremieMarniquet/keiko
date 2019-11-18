@@ -16,12 +16,10 @@ class PokemonListener
         $this->manager = $manager;
     }
 
-    // the entity listener methods receive two arguments:
-    // the entity instance and the lifecycle event
-    public function prePersist(Pokemon $pokemon, LifecycleEventArgs $event)
+    public function checkAbilities(Pokemon $pokemon)
     {
         // if the pokemon is registered with no abilities, add a random one
-        if (empty($pokemon->abilities)) {
+        if (empty($pokemon->getAbilities())) {
 
             $abilities = $this->manager->getRepository(Ability::class)->findAll();
             if (count($abilities) > 0) {
@@ -30,5 +28,12 @@ class PokemonListener
             }
 
         }
+    }
+
+    // the entity listener methods receive two arguments:
+    // the entity instance and the lifecycle event
+    public function prePersist(Pokemon $pokemon, LifecycleEventArgs $event)
+    {
+        $this->checkAbilities($pokemon);
     }
 }
