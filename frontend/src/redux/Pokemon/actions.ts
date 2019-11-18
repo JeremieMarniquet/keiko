@@ -1,9 +1,7 @@
 import { createStandardAction } from 'typesafe-actions';
 import { PokemonType, PokemonState } from './types';
 
-export const fetchPokemonsSuccess = createStandardAction('Pokemon/FETCH_SUCCESS')<{
-  pokemons: PokemonState;
-}>();
+export const fetchPokemonsSuccess = createStandardAction('Pokemon/FETCH_SUCCESS')<PokemonState>();
 
 export const fetchPokemonsRequested = createStandardAction(
   'Pokemon/FETCH_POKEMONS_REQUESTED',

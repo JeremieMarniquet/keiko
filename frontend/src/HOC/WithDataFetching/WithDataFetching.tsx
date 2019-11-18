@@ -4,31 +4,19 @@ import { FormattedMessage } from 'react-intl';
 import Loader from '../../assets/loader.svg';
 
 import Style from './WithDataFetching.style';
-import { normalize } from 'redux/Pokemon';
 
 const withDataFetching = <Props extends object>(
   dataName: string,
   fetchFunction: (props: Props) => any,
   shouldCallEffect: (props: Props) => any[],
-  successFunction: (props: Props, data: any) => void,
 ) => (BaseComponent: React.ComponentType<Props>) => (props: Props) => {
   // Initial state
-  let [loading, setLoading] = useState<boolean>(true);
+  let [loading, setLoading] = useState<boolean>(false);
   let [error, setError] = useState<boolean>(false);
 
   // Fetch effect
   useEffect(() => {
-    let effect = async () => {
-      setLoading(true);
-      try {
-        let response = await fetchFunction(props);
-        successFunction(props, normalize(response.body));
-      } catch (e) {
-        setError(true);
-      }
-      setLoading(false);
-    };
-    effect();
+    fetchFunction(props);
   }, shouldCallEffect(props));
 
   return (

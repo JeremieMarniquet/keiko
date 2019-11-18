@@ -12,7 +12,6 @@ export interface Props {
   // route parameters
   match: any;
   fetchPokemonsRequested: (page: String) => void;
-  fetchPokemonsSuccess: (pokemons: { pokemons: PokemonState }) => void;
 }
 
 var Home = (props: Props) => {
