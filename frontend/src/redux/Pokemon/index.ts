@@ -6,3 +6,4 @@ export { default as actions } from './actions';
 export * from './actions';
 export * from './normalizer';
 export * from './selectors';
+export { default as sagas } from './sagas';
