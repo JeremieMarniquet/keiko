@@ -11,8 +11,8 @@ const withDataFetching = <Props extends object>(
   shouldCallEffect: (props: Props) => any[],
 ) => (BaseComponent: React.ComponentType<Props>) => (props: Props) => {
   // Initial state
-  let [loading, setLoading] = useState<boolean>(false);
-  let [error, setError] = useState<boolean>(false);
+  let [loading] = useState<boolean>(false);
+  let [error] = useState<boolean>(false);
 
   // Fetch effect
   useEffect(() => {

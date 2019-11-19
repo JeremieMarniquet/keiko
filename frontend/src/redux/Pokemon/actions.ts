@@ -7,6 +7,8 @@ export const fetchPokemonsRequested = createStandardAction(
   'Pokemon/FETCH_POKEMONS_REQUESTED',
 )<{}>();
 
+export const fetchPokemonRequested = createStandardAction('Pokemon/FETCH_POKEMON_REQUESTED')<{}>();
+
 export const fetchPokemonSuccess = (pokemon: PokemonType) => ({
   type: 'Pokemon/FETCH_ONE_SUCCESS',
   pokemon,
